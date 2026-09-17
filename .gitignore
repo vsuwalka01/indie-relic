@@ -37,3 +37,6 @@ Thumbs.db
 # Build outputs
 .turbo/
 *.tsbuildinfo
+
+.vercel
+.env*

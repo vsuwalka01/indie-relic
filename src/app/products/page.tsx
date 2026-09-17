@@ -11,6 +11,10 @@ import { useCart } from '@/lib/cartStore';
 import { useToast } from '@/lib/toastStore';
 import { pressable } from '@/lib/motion';
 import TiltCard from '@/components/TiltCard';
+import RevealText from '@/components/RevealText';
+import Marquee from '@/components/Marquee';
+import Newsletter from '@/components/Newsletter';
+import { SectionLabel, StitchDivider, DriftMotif, Chip } from '@/components/Ornaments';
 
 const CRAFT_ICONS = ['◆', '✦', '❖', '✚', '❋'];
 
@@ -57,20 +61,26 @@ export default function ProductsPage() {
               {CRAFT_ICONS[i % CRAFT_ICONS.length]}
             </motion.span>
           ))}
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
+          <RevealText
+            as="h1"
+            lines={['ALL PRODUCTS']}
+            delay={0.15}
             className="relative z-10 text-cream font-body font-extrabold text-4xl md:text-6xl tracking-wide"
-          >
-            ALL PRODUCTS
-          </motion.h1>
+          />
         </motion.div>
+      </div>
+
+      {/* Craft ribbon */}
+      <div className="bg-navy text-gold py-3 mt-6 border-y border-gold/25">
+        <Marquee items={['Kavad', 'Bidriware', 'Pattachitra', 'Blue pottery', 'Dhokra', 'Warli', 'Channapatna', 'Madhubani']} speed={26} reverse />
       </div>
 
       {/* Toolbar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-8">
-        <p className="text-maroon font-bold">{sorted.length} PRODUCTS</p>
+        <div className="flex items-center gap-3">
+          <p className="text-maroon font-bold">{sorted.length} PRODUCTS</p>
+          <Chip tone="gold">In stock</Chip>
+        </div>
         <div className="flex items-center gap-6">
           <div className="relative">
             <button
@@ -107,7 +117,9 @@ export default function ProductsPage() {
       </div>
 
       {/* Product grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 relative">
+        <DriftMotif kind="flower" className="w-20 h-20 -right-2 -top-6 text-gold hidden lg:block" />
+        <SectionLabel index="01" className="text-maroon mb-6">The full collection</SectionLabel>
         <motion.div
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
           initial="hidden"
@@ -121,9 +133,10 @@ export default function ProductsPage() {
               variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0 } }}
             >
               <TiltCard className="[perspective:800px]">
-                <Link href={`/products/${product.id}`} className="group cursor-pointer block">
+                <Link href={`/products/${product.id}`} data-cursor="View" className="group cursor-pointer block">
                   <div className="relative h-72 bg-white overflow-hidden">
                     <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <span className="product-craft-label">{product.craft}</span>
                     <div className="absolute inset-y-0 right-3 flex items-center text-navy-dark">
                       <UiIconSvg icon={smallArrowRightIcon} size={17} />
                     </div>
@@ -134,6 +147,7 @@ export default function ProductsPage() {
                       <p className="text-cream/80 text-sm mt-1">₹ {product.price.toLocaleString('en-IN')}</p>
                     </div>
                     <motion.button
+                      data-cursor="Add"
                       whileHover={{ rotate: 90 }}
                       whileTap={{ scale: 0.85 }}
                       onClick={(e) => {
@@ -152,7 +166,10 @@ export default function ProductsPage() {
             </motion.div>
           ))}
         </motion.div>
+        <StitchDivider className="text-navy mt-16" />
       </div>
+
+      <Newsletter />
 
       {/* Filter drawer */}
       <AnimatePresence>

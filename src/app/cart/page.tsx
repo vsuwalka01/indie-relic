@@ -7,6 +7,8 @@ import { Minus, Plus, X } from 'lucide-react';
 import { useCart } from '@/lib/cartStore';
 import { useToast } from '@/lib/toastStore';
 import { slideUp, stagger, pressable } from '@/lib/motion';
+import Marquee from '@/components/Marquee';
+import { SectionLabel, StitchDivider, DriftMotif, Chip } from '@/components/Ornaments';
 
 export default function CartPage() {
   const { items, remove, setQty, subtotal } = useCart();
@@ -19,10 +21,16 @@ export default function CartPage() {
 
   return (
     <div className="min-h-screen bg-cream">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <h1 className="font-display text-4xl md:text-5xl font-bold text-navy-dark mb-10">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative">
+        <DriftMotif kind="diamond" className="w-14 h-14 right-0 top-12 text-gold hidden md:block" />
+        <SectionLabel index="01" className="text-maroon mb-4">Ready when you are</SectionLabel>
+        <h1 className="font-display text-4xl md:text-5xl font-bold text-navy-dark mb-3">
           Your Bag
         </h1>
+        {hydrated && items.length > 0 && (
+          <Chip tone="navy" className="mb-8">{items.length} {items.length === 1 ? 'piece' : 'pieces'}</Chip>
+        )}
+        <StitchDivider className="text-navy mb-10" />
 
         {!hydrated ? null : items.length === 0 ? (
           <motion.div
@@ -117,9 +125,17 @@ export default function CartPage() {
               >
                 PROCEED TO CHECKOUT
               </motion.button>
+              <div className="flex flex-wrap gap-2 mt-5">
+                <Chip tone="gold">Secure checkout</Chip>
+                <Chip tone="gold">7-day returns</Chip>
+              </div>
             </motion.div>
           </div>
         )}
+      </div>
+
+      <div className="bg-navy text-gold py-3 border-y border-gold/25">
+        <Marquee items={['Free shipping over ₹2,000', 'Packed by hand', 'Artisan-signed piece', '7-day returns']} speed={30} />
       </div>
     </div>
   );

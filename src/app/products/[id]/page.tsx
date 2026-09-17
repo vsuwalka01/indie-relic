@@ -12,6 +12,8 @@ import StarRating from '@/components/StarRating';
 import { useCart } from '@/lib/cartStore';
 import { useToast } from '@/lib/toastStore';
 import { pressable } from '@/lib/motion';
+import Marquee from '@/components/Marquee';
+import { SectionLabel, StitchDivider, DriftMotif, Chip } from '@/components/Ornaments';
 
 const ratingBreakdown = [
   { stars: 5, count: 1985 },
@@ -91,12 +93,19 @@ export default function ProductDetailPage() {
             className="relative flex-1 aspect-square rounded-2xl overflow-hidden bg-white"
           >
             <img src={product.gallery[activeImage]} alt={product.name} className="w-full h-full object-cover" />
+            <span className="product-craft-label">{product.craft}</span>
           </motion.div>
         </div>
 
         <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="flex flex-col">
+          <SectionLabel index="01" className="text-maroon mb-4">{product.craft}</SectionLabel>
           <h1 className="font-display text-3xl md:text-4xl font-bold text-navy-dark">{product.name}</h1>
-          <p className="text-navy-dark/60 mt-2">{product.intro}</p>
+          <div className="flex flex-wrap gap-2 mt-4">
+            <Chip tone="gold">Handmade</Chip>
+            <Chip tone="navy">Artisan-made</Chip>
+            <Chip tone="maroon">Limited run</Chip>
+          </div>
+          <p className="text-navy-dark/60 mt-3">{product.intro}</p>
 
           <div className="mt-8">
             <p className="font-bold text-navy-dark">About craft:</p>
@@ -128,6 +137,11 @@ export default function ProductDetailPage() {
             </div>
           </div>
         </motion.div>
+      </div>
+
+      {/* Craft promise ribbon */}
+      <div className="bg-navy text-gold py-3 mt-14 border-y border-gold/25">
+        <Marquee items={['Free shipping over ₹2,000', '7-day returns', 'Ships in 3–5 days', 'Artisan-signed piece']} speed={30} />
       </div>
 
       {/* Sticky bar + accordions */}
@@ -197,6 +211,7 @@ export default function ProductDetailPage() {
 
       {/* See the size in your space */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20">
+        <SectionLabel index="02" className="text-maroon mb-3">Scale &amp; proportion</SectionLabel>
         <h2 className="font-display text-2xl md:text-3xl font-bold text-navy-dark mb-8">See the Size in Your Space</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="rounded-2xl bg-white p-8 flex items-center justify-center text-center text-navy-dark/50 aspect-square">
@@ -214,6 +229,7 @@ export default function ProductDetailPage() {
 
       {/* Reviews */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20">
+        <SectionLabel index="03" className="text-maroon mb-5">What people say</SectionLabel>
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10">
           <div className="flex items-center gap-6">
             <p className="font-display text-5xl font-bold text-navy-dark">5</p>
@@ -264,7 +280,10 @@ export default function ProductDetailPage() {
       </div>
 
       {/* More products */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 pb-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20 pb-20 relative">
+        <StitchDivider className="text-navy mb-12" />
+        <DriftMotif kind="diamond" className="w-14 h-14 right-0 top-14 text-gold hidden lg:block" />
+        <SectionLabel index="04" className="text-maroon mb-3 justify-center w-full">Keep exploring</SectionLabel>
         <h2 className="font-display text-2xl md:text-3xl font-bold text-navy-dark text-center mb-10">More Products</h2>
         <div className="flex items-center gap-4">
           <button className="hidden md:flex text-navy-dark hover:text-maroon transition-colors flex-shrink-0">

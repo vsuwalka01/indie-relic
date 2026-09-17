@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import BirdMark from '@/components/BirdMark';
 import { pressable } from '@/lib/motion';
+import { SectionLabel, DriftMotif, Chip, CropMarks } from '@/components/Ornaments';
 
 type Step = 'phone' | 'otp' | 'success';
 
@@ -38,9 +39,17 @@ export default function AccountPage() {
         className="w-full max-w-4xl bg-navy/5 rounded-3xl grid grid-cols-1 md:grid-cols-2 overflow-hidden"
       >
         {/* Left brand panel */}
-        <div className="flex items-center justify-center p-10 md:p-14">
+        <div className="flex flex-col items-center justify-center p-10 md:p-14 relative">
+          <DriftMotif kind="flower" className="w-14 h-14 left-6 top-8 text-gold" />
+          <DriftMotif kind="diamond" className="w-12 h-12 right-6 bottom-10 text-maroon" delay={1.3} />
+          <SectionLabel index="01" className="text-maroon mb-6">Members&rsquo; entrance</SectionLabel>
           <div className="relative w-48 h-64">
+            <CropMarks className="text-navy-dark -m-3" />
             <BirdMark className="w-full h-full" beat={0.9} />
+          </div>
+          <div className="flex flex-wrap gap-2 justify-center mt-6">
+            <Chip tone="navy">Order history</Chip>
+            <Chip tone="gold">Early access</Chip>
           </div>
         </div>
 

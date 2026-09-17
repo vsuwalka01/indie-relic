@@ -9,6 +9,8 @@ import TiltCard from '@/components/TiltCard';
 import { STATE_CRAFTS, unslugifyState, slugifyState } from '@/lib/stateCrafts';
 import { getCraftTheme } from '@/lib/craftThemes';
 import { getProduct } from '@/lib/products';
+import Marquee from '@/components/Marquee';
+import { SectionLabel, StitchDivider, DriftMotif, Chip } from '@/components/Ornaments';
 
 export default function StateCraftPage() {
   const params = useParams();
@@ -27,8 +29,13 @@ export default function StateCraftPage() {
         <Link href="/craft-map" className="story-back">← Back to the craft atlas</Link>
         <div className="story-hero">
           <div>
-            <p className="eyebrow mb-6">Stories from {stateName} / {String(index + 1).padStart(2, '0')}</p>
+            <SectionLabel index={String(index + 1).padStart(2, '0')} className="mb-6">Stories from {stateName}</SectionLabel>
             <h1 className="font-display story-title">{craft.craft}</h1>
+            <div className="flex flex-wrap gap-2 mt-5">
+              <Chip tone="navy">{craft.region}</Chip>
+              <Chip tone="maroon">{craft.age}</Chip>
+              {product && <Chip tone="gold">Shop this craft</Chip>}
+            </div>
             <p className="story-tagline">{craft.tagline}.</p>
             <div className="story-rule" />
             <p className="text-sm leading-relaxed max-w-sm opacity-80">{theme.note}. A tradition rooted in {craft.region}, carried forward by hand.</p>
@@ -43,21 +50,26 @@ export default function StateCraftPage() {
         </div>
       </div>
     </ParallaxScene>
-    <section id="the-story" className="story-body max-w-7xl mx-auto px-5 sm:px-8 py-16 md:py-24">
+    <div className="bg-navy text-gold py-3 border-y border-gold/25">
+      <Marquee items={[craft.craft, craft.region, stateName, 'Made by hand', craft.age]} speed={28} />
+    </div>
+    <section id="the-story" className="story-body max-w-7xl mx-auto px-5 sm:px-8 py-16 md:py-24 relative">
+      <DriftMotif kind="flower" className="w-16 h-16 right-2 top-8 hidden lg:block" />
       <div>
-        <p className="eyebrow mb-5">The tradition</p>
+        <SectionLabel index="01" className="mb-5">The tradition</SectionLabel>
         <h2 className="font-display text-3xl md:text-4xl leading-snug">Made by hand.<br />Held in memory.</h2>
         <p className="mt-8 text-base md:text-lg leading-[1.9] opacity-85">{craft.description}</p>
         <Link href={product ? '/products/' + product.id : '/products'} className="craft-cta mt-9">{product ? 'Explore ' + product.name : 'Explore our craft collection'} <span>↗</span></Link>
       </div>
       <div className="story-map-panel">
-        <p className="eyebrow">Find the roots</p>
+        <SectionLabel index="02">Find the roots</SectionLabel>
         <IndiaMap className="w-full max-w-[330px] mx-auto" highlightState={stateName} onStateClick={state => router.push('/craft-map/' + slugifyState(state))} />
         <p className="text-center text-sm">{craft.region}, {stateName}</p>
       </div>
     </section>
     <section className="max-w-7xl mx-auto px-5 sm:px-8 pb-20">
-      <div className="flex justify-between items-end gap-4 mb-8"><div><p className="eyebrow mb-3">The journey continues</p><h2 className="font-display text-3xl">Another place. Another story.</h2></div><Link href="/craft-map" className="story-back hidden sm:inline-flex">See all stories ↗</Link></div>
+      <StitchDivider className="mb-12" />
+      <div className="flex justify-between items-end gap-4 mb-8"><div><SectionLabel index="03" className="mb-3">The journey continues</SectionLabel><h2 className="font-display text-3xl">Another place. Another story.</h2></div><Link href="/craft-map" className="story-back hidden sm:inline-flex">See all stories ↗</Link></div>
       <div className="grid sm:grid-cols-3 gap-6">{more.map(m => {
         const next = getCraftTheme(m.state);
         return <TiltCard key={m.state} maxTilt={4}><Link href={'/craft-map/' + slugifyState(m.state)} className="next-story" style={{ background: next.ink, color: next.paper }}>
