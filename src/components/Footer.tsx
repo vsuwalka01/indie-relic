@@ -36,7 +36,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="relative bg-cream pt-16">
+    <footer className="site-footer relative bg-cream pt-16">
       {/* Hummingbird mark poking above the navy panel */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div

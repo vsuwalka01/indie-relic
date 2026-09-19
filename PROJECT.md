@@ -1,54 +1,170 @@
-# Indie Relic - E-Commerce Store Project
+# Indie Relic — Project Reference
 
-**Project**: Indian heritage/craft marketplace — "Indian Traditions, Reimagined for Everyday Living"
-**Stack**: Next.js 14 (App Router) + Tailwind CSS + Framer Motion
-**Status**: Design-matched build complete, running locally
-**Created**: 2026-09-16
-**Design source**: `C:\Users\doctor\Desktop\indie\` (Figma/Illustrator exports of the full site design)
+**Product:** Indian heritage and craft ecommerce store  
+**Tagline:** Indian traditions, reimagined for everyday living  
+**Stack:** Next.js 14 App Router, React 18, TypeScript, Tailwind CSS, Framer Motion, Zustand, Lenis  
+**Production:** https://indie-store-mu.vercel.app  
+**Hosting:** Vercel project `indie-store`  
+**Status:** Production deployment live; storefront, cart, checkout, customer accounts, CMS, and OTP authentication are operational  
+**Last updated:** 2026-09-20
 
-## Design System (extracted from source files)
+## Product and design
 
-- **Colors**: Cream `#F4F1DC` (bg), Navy `#2F4D77` (primary), Navy-dark `#172B53` (ink/logo), Gold `#DAAC54` (accent), Maroon `#9E2027` (nav/links)
-- **Fonts**: Display = Fraunces (substitute for paid TAN Nimbus), Body = Inter (substitute for Calibri/Acumin)
-- **Logo assets**: `public/logo-header.png` (wordmark), `public/logo-mark.png` (hummingbird icon), both extracted from source PDFs with transparency
-- **Map asset**: `public/india-map.png` — real India silhouette (from djaiss/mapsicon), recolored to brand navy
-- **Signature motifs**: checkered navy block decorations (header corner, legal page hero, footer), ₹ pricing, "Craft: XXXX" attribution tags, gold diamond+pixel-cross info cards
+The storefront keeps the original Indie Relic design language: cream, navy, maroon, and gold; editorial serif typography; crop marks; stitched paths; diamonds; flowers; and state-specific craft artwork.
 
-## Pages Built
+- Cream `#F4F1DC`
+- Navy `#2F4D77`
+- Navy dark `#172B53`
+- Gold `#DAAC54`
+- Maroon `#9E2027`
+- Display font: Fraunces
+- Body font: Inter
 
-- [x] **Home** (`/`) — navy hero card w/ animated hummingbird mark, featured products carousel, craft-story spotlight (Rajasthan card), testimonials
-- [x] **All Products** (`/products`) — navy confetti hero banner, sort dropdown, filter drawer (slide-in), 8-product grid
-- [x] **Single Product** (`/products/[id]`) — gallery thumbnails, About craft / Idea behind product, sticky add-to-cart bar, 4 accordions, size-in-space section, reviews w/ rating breakdown, more products
-- [x] **Craft Map** (`/craft-map`) — real India map image, 6 clickable region pins (Rajasthan/Bihar/Karnataka/Odisha/Chhattisgarh/Punjab), gold info card
-- [x] **Search** (`/search`) — minimal full-width overlay, live product filtering
-- [x] **Account** (`/account`) — phone number entry (+91) → OTP verification (4-digit, countdown) → success, split-panel layout
-- [x] **About** (`/about`) — real extracted brand story copy (artisan immersion, mission)
-- [x] **Privacy Policy** (`/privacy`) — real extracted copy, checkered-block legal hero
-- [x] **Terms of Service** (`/terms`) — real extracted copy
-- [x] **Return Policy** (`/returns`) — real extracted copy (no returns, exchange-only policy)
+Motion includes page transitions, smooth scrolling, scroll progress, reveal effects, parallax scenes, magnetic controls, card tilt, marquees, craft motifs, and cursor-responsive details. The bird mark is static in the main design and does not fly through the page.
 
-## Data
+## Customer-facing pages
 
-- `src/lib/products.ts` — single source of truth for all 8 products (Chittor Fort Kavad, Madhubani Wall Panel, Bidriware Vase, Channapatna Toy Set, Pattachitra Scroll, Dhokra Figurine, Blue Pottery Bowl, Phulkari Runner), each with real craft-heritage copy and verified Unsplash images
-- Product images verified working (many Unsplash IDs in the initial pass were 404 — replaced with checked-working alternatives)
+- `/` — homepage, featured products, craft story, testimonials, and state craft links
+- `/products` — responsive product catalog, filters, and sorting
+- `/products/[id]` — product gallery, story, reviews, related products, and visible add-to-cart controls
+- `/cart` — persistent cart, quantities, coupons, address collection, and guest or signed-in checkout
+- `/search` — product search
+- `/craft-map` — responsive interactive India craft map
+- `/craft-map/[state]` — state-themed craft pages with artwork, story, materials, process, and related products
+- `/about` — brand story, mission, and craft references
+- `/account` — phone authentication, profile, address book, and order history
+- `/privacy`, `/terms`, `/returns` — legal and policy pages
 
-## Known Simplification / Follow-ups
+## Commerce behavior
 
-- Fonts are close substitutes (Fraunces/Inter), not the exact paid TAN Nimbus/Acumin — swap in `tailwind.config.js` fontFamily + `globals.css` import if the real font files are licensed later
-- Product photography is stock (Unsplash) standing in for real product shots — swap `src/lib/products.ts` image URLs when real photography is available
-- No backend/cart persistence yet — "Add to Cart" is UI-only (see EXTENSION_GUIDE.md for Zustand cart wiring)
-- WhatsApp/email placeholders in footer (`support@indierelic.com` etc.) are inferred — update with real contact details
+- The Zustand cart persists in browser storage under `indie-relic-cart`.
+- Products can be added from product cards and detail pages.
+- Checkout supports guests and signed-in customers.
+- The server recalculates product prices, coupon discounts, and totals from stored data; browser-supplied prices are ignored.
+- Orders are persisted and appear in the CMS.
+- Signed-in customers can save addresses and view their order history.
+- Online payment is not connected yet. The current flow records an order without charging a card or UPI account.
 
-## Quick Commands
+## Customer authentication and OTP
 
-```bash
-cd indie-store
-npm install
-npm run dev     # http://localhost:3000
-npm run build   # production build (do NOT run while npm run dev is active — corrupts .next cache)
+- Customer login uses a six-digit, five-minute OTP.
+- OTP hashes, expiry, resend cooldown, hourly limits, and failed-attempt limits are stored server-side.
+- Production delivery uses 2Factor with the approved `IndieRelicOTP` template.
+- The current free 2Factor trial delivers Indian OTPs through an automated voice call. The account page tells users to answer the call.
+- SMS delivery requires an approved Indian DLT principal entity, sender header, and content template. After DLT activation, set `TWO_FACTOR_DELIVERY_MODE=sms` in Vercel.
+
+## CMS
+
+The CMS is available at `/admin/login` and uses signed, HTTP-only admin sessions with role checks.
+
+CMS sections:
+
+- Products
+- State craft stories and map links
+- Orders, assignment, tracking, status, notes, and timeline
+- Coupons and usage limits
+- Site settings and homepage copy
+- Theme tokens
+- CMS users and roles
+
+The environment-configured owner remains available as a recovery account even after additional CMS users are created.
+
+## Data storage
+
+Production uses a private Vercel Blob store. Each collection is saved as a stable JSON object under `cms/`:
+
+- `products`
+- `crafts`
+- `settings`
+- `coupons`
+- `orders`
+- `users`
+- `theme`
+- `customers`
+- `otps`
+
+Local development uses `data/*.json` when Blob credentials are absent. Code-defined seed data is used until a collection is saved for the first time.
+
+## API routes
+
+- `POST /api/auth/request-otp`
+- `POST /api/auth/verify-otp`
+- `GET/PUT/DELETE /api/account`
+- `GET/POST/PUT/DELETE /api/account/addresses`
+- `GET /api/account/orders`
+- `POST /api/coupons/check`
+- `POST /api/orders`
+- `POST /api/admin/login`
+- `POST /api/admin/logout`
+- `GET/PUT /api/admin/content/[collection]`
+- `GET/PATCH /api/admin/orders`
+- `GET/POST/PATCH/DELETE /api/admin/users`
+
+## Environment variables
+
+Never commit real values. Production values are configured in Vercel.
+
+```env
+# CMS owner and sessions
+ADMIN_USERNAME=
+ADMIN_PASSWORD=
+ADMIN_SESSION_SECRET=
+CUSTOMER_SESSION_SECRET=
+
+# Production persistence
+BLOB_STORE_ID=
+# BLOB_READ_WRITE_TOKEN=   # supported for older/manual Blob setups
+
+# Current OTP provider
+TWO_FACTOR_API_KEY=
+TWO_FACTOR_TEMPLATE_NAME=IndieRelicOTP
+TWO_FACTOR_DELIVERY_MODE=voice
+
+# Other supported SMS providers
+# TWILIO_ACCOUNT_SID=
+# TWILIO_AUTH_TOKEN=
+# TWILIO_FROM=
+# MSG91_AUTH_KEY=
+# MSG91_SENDER_ID=
+# TEXTBELT_API_KEY=
 ```
 
-## Notes
+## Local development
 
-- Original design files: `C:\Users\doctor\Desktop\indie\*.pdf` / `*.ai` (10 files, 31 pages total)
-- Do not run `npm run build` and `npm run dev` concurrently — it corrupts the `.next` cache and causes 500s. Stop dev server first if you need a production build check.
+```bash
+cd C:\Users\doctor\Desktop\indie-store
+npm install
+npm run dev
+```
+
+Open http://localhost:3000. Use `npm run build` for the production validation build and `npm start` to serve that build locally.
+
+Do not run `npm run dev` and `npm run build` against the same `.next` directory at the same time.
+
+## Deployment
+
+```bash
+npx vercel --prod --yes
+```
+
+The production alias is `https://indie-store-mu.vercel.app`. A deployment is complete only after Vercel reports `Ready` and the alias responds with HTTP 200.
+
+## Current limitations
+
+- SMS OTP remains on voice delivery until DLT registration is completed.
+- No Razorpay, Stripe, UPI, or other payment capture is implemented.
+- Seed product photography should be replaced with final brand photography when available.
+- Operational contact details and final legal copy should be reviewed before a commercial launch.
+
+## Important source files
+
+- `src/lib/products.ts` — seed product catalog
+- `src/lib/stateCrafts.ts` — state craft content
+- `src/lib/cartStore.ts` — persistent cart
+- `src/lib/cms/store.ts` — local JSON and Vercel Blob persistence
+- `src/lib/cms/sms.ts` — OTP provider adapters
+- `src/lib/cms/otp.ts` — OTP lifecycle and limits
+- `src/app/account/AccountClient.tsx` — customer authentication UI
+- `src/components/CheckoutPanel.tsx` — checkout and address flow
+- `src/components/IndiaMap.tsx` — interactive craft map
+- `src/app/admin/(protected)` — CMS screens

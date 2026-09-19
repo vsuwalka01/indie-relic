@@ -8,12 +8,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        cream: '#F4F1DC',
-        navy: '#2F4D77',
-        'navy-dark': '#172B53',
+        cream: 'var(--brand-cream, #F4F1DC)',
+        navy: 'var(--brand-navy, #2F4D77)',
+        'navy-dark': 'var(--brand-navy-dark, #172B53)',
         'navy-light': '#3D5E8C',
-        gold: '#DAAC54',
-        maroon: '#9E2027',
+        gold: 'var(--brand-gold, #DAAC54)',
+        maroon: 'var(--brand-maroon, #9E2027)',
         // legacy aliases kept for existing components
         primary: '#172B53',
         secondary: '#DAAC54',
@@ -22,8 +22,8 @@ module.exports = {
         light: '#F4F1DC',
       },
       fontFamily: {
-        display: ['TAN Nimbus', 'Fraunces', 'serif'],
-        body: ['Inter', 'sans-serif'],
+        display: ['TAN Nimbus', 'var(--font-display-fallback)', 'serif'],
+        body: ['var(--font-body)', 'sans-serif'],
       },
       animation: {
         fadeIn: 'fadeIn 0.6s ease-in-out',

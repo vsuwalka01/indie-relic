@@ -1,4 +1,5 @@
 'use client';
+import ProductImage from '@/components/ProductImage';
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
@@ -7,11 +8,12 @@ import { Minus, Plus, X } from 'lucide-react';
 import { useCart } from '@/lib/cartStore';
 import { useToast } from '@/lib/toastStore';
 import { slideUp, stagger, pressable } from '@/lib/motion';
+import CheckoutPanel from '@/components/CheckoutPanel';
 import Marquee from '@/components/Marquee';
 import { SectionLabel, StitchDivider, DriftMotif, Chip } from '@/components/Ornaments';
 
 export default function CartPage() {
-  const { items, remove, setQty, subtotal } = useCart();
+  const { items, remove, setQty } = useCart();
   const showToast = useToast((s) => s.show);
 
   // avoid hydration mismatch between the server render (always empty) and
@@ -24,7 +26,7 @@ export default function CartPage() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative">
         <DriftMotif kind="diamond" className="w-14 h-14 right-0 top-12 text-gold hidden md:block" />
         <SectionLabel index="01" className="text-maroon mb-4">Ready when you are</SectionLabel>
-        <h1 className="font-display text-4xl md:text-5xl font-bold text-navy-dark mb-3">
+        <h1 className="section-display text-navy-dark mb-3">
           Your Bag
         </h1>
         {hydrated && items.length > 0 && (
@@ -61,10 +63,10 @@ export default function CartPage() {
                     layout
                     variants={slideUp}
                     exit={{ opacity: 0, x: -40, transition: { duration: 0.25 } }}
-                    className="flex gap-4 bg-white rounded-2xl p-4 items-center"
+                    className="craft-cart-item flex gap-4 bg-white rounded-2xl p-4 items-center"
                   >
                     <div className="w-20 h-20 rounded-lg overflow-hidden bg-gray-100 flex-shrink-0">
-                      <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
+                      <ProductImage src={item.image} alt={item.name} className="w-full h-full object-cover" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="font-bold text-navy-dark truncate">{item.name}</p>
@@ -106,30 +108,7 @@ export default function CartPage() {
               </AnimatePresence>
             </motion.div>
 
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={slideUp}
-              className="bg-navy text-cream rounded-2xl p-8 h-fit"
-            >
-              <h2 className="font-display text-2xl font-bold mb-6">Summary</h2>
-              <div className="flex justify-between text-cream/80 mb-2">
-                <span>Subtotal</span>
-                <span>₹ {subtotal().toLocaleString('en-IN')}</span>
-              </div>
-              <p className="text-cream/50 text-xs mb-6">Shipping & taxes calculated at checkout</p>
-              <motion.button
-                {...pressable}
-                onClick={() => showToast('Checkout is coming soon')}
-                className="w-full py-4 bg-gold text-navy-dark font-bold rounded-lg hover:bg-cream transition-colors"
-              >
-                PROCEED TO CHECKOUT
-              </motion.button>
-              <div className="flex flex-wrap gap-2 mt-5">
-                <Chip tone="gold">Secure checkout</Chip>
-                <Chip tone="gold">7-day returns</Chip>
-              </div>
-            </motion.div>
+            <CheckoutPanel />
           </div>
         )}
       </div>

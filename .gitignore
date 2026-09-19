@@ -7,6 +7,7 @@ node_modules/
 /build
 /dist
 /.next/
+/.next-preview/
 /out/
 
 # Misc
@@ -40,3 +41,6 @@ Thumbs.db
 
 .vercel
 .env*
+
+# CMS local content store (dev only)
+data/

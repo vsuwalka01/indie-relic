@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 export default function LegalHero({ title }: { title: string }) {
   const steps = [0, 1, 2, 3, 4];
   return (
-    <div className="relative h-[420px] overflow-hidden">
+    <div className="craft-legal-hero relative h-[420px] overflow-hidden">
       {steps.map((i) => (
         <div
           key={i}

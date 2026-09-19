@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import HeaderIconSvg from './HeaderIcon';
@@ -10,6 +11,7 @@ import { personIcon, searchIcon, bagIcon } from './headerIconPaths';
 import { useCart } from '@/lib/cartStore';
 
 export default function Header() {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const count = useCart((s) => s.count());
   const lastAddedAt = useCart((s) => s.lastAddedAt);
@@ -28,7 +30,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="relative sticky top-0 z-50 bg-cream overflow-hidden">
+    <header className="site-header relative sticky top-0 z-50 bg-cream overflow-hidden">
       {/* Checkered corner motif */}
       <div className="hidden md:block absolute top-0 right-0 w-16 h-16">
         <div className="grid grid-cols-2 grid-rows-2 w-full h-full">
@@ -69,7 +71,7 @@ export default function Header() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: idx * 0.08 }}
               >
-                <Link href={link.href} className="nav-link">
+                <Link href={link.href} className="nav-link" aria-current={(link.href === '/' ? pathname === '/' : pathname.startsWith(link.href)) ? 'page' : undefined}>
                   {link.label}
                 </Link>
               </motion.div>
@@ -125,7 +127,7 @@ export default function Header() {
                 </motion.span>
               )}
             </Link>
-            <button onClick={() => setIsOpen(!isOpen)} className="text-navy">
+            <button aria-label={isOpen ? 'Close navigation' : 'Open navigation'} aria-expanded={isOpen} onClick={() => setIsOpen(!isOpen)} className="text-navy min-w-[44px] min-h-[44px] flex items-center justify-center">
               {isOpen ? <X size={26} /> : <Menu size={26} />}
             </button>
           </div>

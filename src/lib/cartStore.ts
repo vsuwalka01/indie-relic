@@ -17,6 +17,7 @@ interface CartState {
   add: (item: Omit<CartItem, 'qty'>, qty?: number) => void;
   remove: (id: number) => void;
   setQty: (id: number, qty: number) => void;
+  clear: () => void;
   count: () => number;
   subtotal: () => number;
 }
@@ -42,6 +43,7 @@ export const useCart = create<CartState>()(
           items: get()
             .items.map((i) => (i.id === id ? { ...i, qty: Math.max(1, qty) } : i)),
         }),
+      clear: () => set({ items: [] }),
       count: () => get().items.reduce((sum, i) => sum + i.qty, 0),
       subtotal: () => get().items.reduce((sum, i) => sum + i.price * i.qty, 0),
     }),

@@ -3,6 +3,7 @@
 import { useRef } from 'react';
 import { motion, useInView, useReducedMotion, useSpring } from 'framer-motion';
 import BirdMark from './BirdMark';
+import ButterflyMotif from './ButterflyMotif';
 
 export function BrandMotif({ kind = 'diamond', className = '' }: { kind?: 'diamond' | 'checker' | 'flower'; className?: string }) {
   return <svg viewBox="0 0 80 80" className={className} aria-hidden="true" fill="currentColor">
@@ -29,7 +30,7 @@ export default function BrandScene({ paused }: { paused: boolean }) {
     <motion.div className="brand-scene-ornaments" style={{ x: still ? 0 : x, y: still ? 0 : y }} aria-hidden="true">
       <BrandMotif className="brand-ornament ornament-one" />
       <BrandMotif kind="checker" className="brand-ornament ornament-two" />
-      <BrandMotif kind="flower" className="brand-ornament ornament-three" />
+      <ButterflyMotif className="brand-ornament ornament-three" size={48} />
       <span className="ornament-dot" />
     </motion.div>
     <span className="brand-scene-label">Rooted in India. Made for today.</span>

@@ -1,0 +1,94 @@
+.about-container { max-width: 1216px; padding-inline: 24px; margin-inline: auto; }
+.about-hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: 70px; align-items: center; padding-block: 52px 76px; }
+.about-hero-copy h1 { color: var(--brand-navy-dark); font-size: clamp(42px, 4.6vw, 68px); line-height: 1.1; margin-block: 26px; }
+.about-hero-copy h1 em { color: var(--brand-maroon); font-style: normal; }
+.about-hero-copy > p { font-size: 15px; line-height: 1.9; max-width: 43ch; color: var(--brand-navy-dark); margin-block: 20px; }
+.about-hero-copy .about-lead { font-size: 21px; line-height: 1.5; }
+.about-button { display: inline-flex; gap: 30px; justify-content: space-between; align-items: center; padding: 16px 22px; min-height: 50px; color: var(--brand-cream); background: var(--brand-navy); border-radius: 5px; font-size: 12px; font-weight: 600; margin-top: 10px; transition: background .2s; }
+.about-button:hover { background: var(--brand-maroon); }
+.about-button span { font-size: 19px; transition: transform .2s; }
+.about-button:hover span { transform: translate(3px,-3px); }
+.about-hero-image { position: relative; padding: 12px; background: var(--brand-navy); background-image: var(--craft-phulkari); background-size: 28px 28px; border-radius: 120px 120px 8px 8px; }
+.about-hero-image > img { width: 100%; aspect-ratio: 4/4.7; object-fit: cover; object-position: center 35%; border-radius: 108px 108px 3px 3px; }
+.about-hero-image figcaption { position: absolute; bottom: 28px; left: 28px; right: 28px; background: var(--brand-cream); color: var(--brand-navy-dark); padding: 12px 14px; font-size: 10px; text-align: center; letter-spacing: .09em; }
+.about-hero-image .craft-flourish { bottom: -26px; right: -26px; width: 100px; height: 110px; }
+.about-belief { background: var(--brand-navy); color: var(--brand-cream); padding-block: 60px; border-block: 1px dashed var(--brand-gold); }
+.about-belief > div { display: grid; grid-template-columns: 1fr 1fr; column-gap: 80px; position: relative; }
+.about-belief .eyebrow { grid-column: 1 / -1; color: var(--brand-gold); margin-bottom: 25px; }
+.about-belief h2 { font-size: clamp(32px,3.8vw,52px); line-height: 1.15; }
+.about-belief p { font-size: 16px; line-height: 1.9; max-width: 42ch; align-self: center; }
+.about-belief-motif { position: absolute; width: 85px; right: -24px; top: -30px; color: var(--brand-gold); opacity: .4; }
+.about-process, .about-roots { padding-block: 65px; }
+.about-section-heading h2 { color: var(--brand-navy-dark); font-size: clamp(31px,3.2vw,44px); line-height: 1.2; margin: 22px 0 32px; }
+.about-process-grid, .about-roots-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 25px; }
+.about-process-grid article { padding: 28px 24px; border-top: 1px solid var(--brand-maroon); border-bottom: 1px dashed color-mix(in srgb,var(--brand-maroon) 30%,transparent); background: color-mix(in srgb,var(--brand-gold) 6%,var(--brand-cream)); }
+.about-step-top { display: flex; justify-content: space-between; align-items: center; color: var(--brand-maroon); font-size: 11px; margin-bottom: 24px; }
+.about-step-top svg { width: 38px; height: 38px; color: var(--brand-gold); transition: transform .5s; }
+.about-process-grid article:hover svg { transform: rotate(25deg); }
+.about-process-grid h3 { font-size: 23px; line-height: 1.3; color: var(--brand-navy-dark); margin-bottom: 18px; }
+.about-process-grid p { font-size: 13px; line-height: 1.9; color: var(--brand-navy-dark); }
+.about-roots { padding-top: 0; }
+.about-roots .about-section-heading > a { display: inline-flex; font-size: 12px; color: var(--brand-maroon); margin-bottom: 24px; text-decoration: underline; text-underline-offset: 4px; }
+.about-root-card { position: relative; display: flex; flex-direction: column; padding: 28px; min-height: 280px; border-radius: 6px 38px 6px 6px; transition: transform .25s; }
+.about-root-card:hover { transform: translateY(-5px); }
+.about-root-card > svg { width: 50px; height: 50px; margin-block: 24px; opacity: .65; }
+.about-root-card h3 { font-size: 26px; line-height: 1.3; margin-bottom: 12px; }
+.about-root-card p { font-size: 13px; line-height: 1.7; padding-right: 20px; }
+.about-root-card .eyebrow { font-size: 9px; line-height: 1.6; }
+.about-root-arrow { position: absolute; bottom: 18px; right: 22px; font-size: 23px; }
+.about-invitation { position: relative; text-align: center; padding-block: 24px 75px; }
+.about-invitation > .craft-flourish { position: static; width: 65px; height: 75px; margin: 0 auto 20px; }
+.about-invitation h2 { font-size: clamp(32px,3.4vw,48px); color: var(--brand-navy-dark); line-height: 1.2; margin-block: 20px; }
+/* Purchase controls remain legible and available without hovering. */
+.crafted-site .relic-card .relic-purchase button { background: var(--brand-navy); color: var(--brand-cream); border-color: var(--brand-navy); min-height: 48px; white-space: nowrap; }
+.crafted-site .relic-card .relic-purchase button:hover { background: var(--brand-maroon); border-color: var(--brand-maroon); }
+.relic-purchase { flex-wrap: wrap; }
+.relic-purchase > button { flex-shrink: 0; }
+.detail-gallery { display: grid; grid-template-columns: 72px minmax(0,1fr); gap: 14px; align-self: start; }
+.detail-thumbnails { display: flex; flex-direction: column; gap: 12px; }
+.detail-thumbnails > button { width: 72px; height: 72px; flex-shrink: 0; }
+.detail-main-photo { min-width: 0; align-self: start; }
+.detail-purchase { padding: 22px; background: color-mix(in srgb,var(--brand-gold) 10%,var(--brand-cream)); border: 1px solid color-mix(in srgb,var(--brand-navy) 24%,transparent); border-radius: 10px; }
+.detail-purchase-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 20px; }
+.detail-purchase-actions > div { flex-shrink: 0; }
+.detail-purchase-actions > button { min-height: 50px; flex: 1 1 170px; white-space: nowrap; }
+.mobile-product-purchase { display: none; }
+@media (max-width: 1023px) {
+  .about-hero { gap: 35px; }
+  .about-belief > div { gap: 25px; }
+  .about-belief-motif { right: 10px; }
+  .about-process-grid, .about-roots-grid { gap: 16px; }
+  .about-process-grid article, .about-root-card { padding: 22px 18px; }
+}
+@media (max-width: 767px) {
+  .about-container { padding-inline: 22px; }
+  .about-hero { grid-template-columns: 1fr; padding-block: 32px 50px; gap: 35px; }
+  .about-hero-copy h1 { font-size: 43px; }
+  .about-hero-copy .about-lead { font-size: 20px; }
+  .about-hero-copy > p { font-size: 14px; }
+  .about-hero-image { max-width: 440px; margin-inline: auto; width: 100%; }
+  .about-hero-image > img { aspect-ratio: 4/4.2; }
+  .about-hero-image .craft-flourish { right: -16px; width: 70px; }
+  .about-belief { padding-block: 40px; }
+  .about-belief > div { grid-template-columns: 1fr; gap: 20px; }
+  .about-belief .eyebrow { margin-bottom: 0; }
+  .about-belief p { font-size: 14px; }
+  .about-belief-motif { width: 55px; top: 20px; }
+  .about-process { padding-block: 42px; }
+  .about-process-grid, .about-roots-grid { grid-template-columns: 1fr; }
+  .about-root-card { min-height: 250px; }
+  .about-roots { padding-bottom: 40px; }
+  .about-invitation { padding-bottom: 45px; }
+  .detail-gallery { display: flex; flex-direction: column-reverse; }
+  .detail-main-photo { width: 100%; }
+  .detail-thumbnails { flex-direction: row; width: 100%; overflow-x: auto; padding-bottom: 3px; }
+  .detail-thumbnails > button { width: 60px; height: 60px; }
+  .detail-purchase { padding: 18px; }
+  .mobile-product-purchase { position: fixed; left: 0; right: 0; bottom: 0; z-index: 45; display: flex; gap: 16px; align-items: center; justify-content: space-between; padding: 12px 18px calc(12px + env(safe-area-inset-bottom)); background: var(--brand-cream); border-top: 1px solid var(--brand-gold); box-shadow: 0 -4px 18px #172b5310; }
+  .mobile-product-purchase > div { display: flex; flex-direction: column; gap: 4px; min-width: 0; color: var(--brand-navy-dark); }
+  .mobile-product-purchase > div > span { max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 10px; }
+  .mobile-product-purchase strong { font-size: 15px; }
+  .mobile-product-purchase button { display: flex; align-items: center; gap: 16px; white-space: nowrap; padding: 14px 18px; background: var(--brand-navy); color: var(--brand-cream); font-size: 12px; font-weight: 600; border-radius: 5px; min-height: 48px; }
+  .crafted-site:has(.product-detail-page) { padding-bottom: 90px; }
+  .crafted-site:has(.product-detail-page) .to-top { bottom: 100px; }
+}

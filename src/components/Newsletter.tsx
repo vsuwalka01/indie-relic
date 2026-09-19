@@ -11,7 +11,7 @@ import { SectionLabel, DriftMotif, CropMarks } from './Ornaments';
  * Signup block. There's no mailing backend wired up, so this validates the
  * address and acknowledges locally rather than pretending to subscribe.
  */
-export default function Newsletter() {
+export default function Newsletter({ heading, body }: { heading?: string; body?: string } = {}) {
   const [email, setEmail] = useState('');
   const [done, setDone] = useState(false);
   const showToast = useToast((s) => s.show);
@@ -29,11 +29,11 @@ export default function Newsletter() {
 
         <RevealText
           as="h2"
-          lines={['A letter from the workshops.']}
+          lines={[heading ?? 'A letter from the workshops.']}
           className="font-display text-3xl md:text-4xl text-cream text-center mt-5"
         />
         <p className="text-cream/70 text-center mt-4 max-w-xl mx-auto leading-relaxed">
-          New collections, artisan stories, and the occasional dispatch from the road — once a month, never more.
+          {body ?? 'New collections, artisan stories, and the occasional dispatch from the road — once a month, never more.'}
         </p>
 
         <AnimatePresence mode="wait">

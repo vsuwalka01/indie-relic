@@ -1,0 +1,11 @@
+node_modules
+.git
+.next
+.next-preview
+.vercel
+.claude-flow
+**/.claude-flow
+.env*
+data
+*.tsbuildinfo
+*.log

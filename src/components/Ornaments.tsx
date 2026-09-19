@@ -1,6 +1,7 @@
 'use client';
 
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
+import { useRef } from 'react';
 import { BrandMotif } from './BrandScene';
 
 /** Numbered eyebrow with a drawing rule — marks the start of a section. */
@@ -36,16 +37,18 @@ export function DriftMotif({
   className?: string;
   delay?: number;
 }) {
-  const reduceMotion = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+  const visible = useInView(ref);
   return (
-    <motion.div
+    <div
+      ref={ref}
       aria-hidden="true"
-      className={`drift-motif ${className}`}
-      animate={reduceMotion ? undefined : { y: [0, -9, 0], rotate: [-4, 5, -4] }}
-      transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay }}
+      className={`drift-motif animated-craft-motif ${className}`}
+      data-running={visible}
+      style={{ animationDelay: `${delay}s` }}
     >
       <BrandMotif kind={kind} className="w-full h-full" />
-    </motion.div>
+    </div>
   );
 }
 
